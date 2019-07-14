@@ -1,4 +1,5 @@
-Feature: Belly
+@all
+Feature: Test1
 
   Scenario: first scenario
     Given First Step
