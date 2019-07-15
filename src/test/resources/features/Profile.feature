@@ -1,5 +1,5 @@
 @all
-Feature: Test3
+Feature: Profile
 
   Scenario: first scenario3
     Given First Step

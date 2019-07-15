@@ -1,7 +1,7 @@
 @all
-Feature: Test2
+Feature: Details
 
-  Scenario: first scenario2
+  Scenario: first scenario3
     Given First Step
     When Second step
     Then Third Step
