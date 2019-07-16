@@ -9,33 +9,44 @@ import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.remote.RemoteWebDriver;
 
 import java.io.File;
+import java.sql.Driver;
+import java.sql.Time;
+import java.util.concurrent.TimeUnit;
 
-public class Driver {
+public class SharedDriver {
 
     RemoteWebDriver driver;
 
-    public RemoteWebDriver getDriver() {
-        String seleniumDriver = System.getProperty("seleniumDriver");
-        if (!isDriverAvailable(seleniumDriver)) {
-            //logger
-            seleniumDriver = AvailableDrivers.CHROME.driver();
-        }
-        String headlessOption = System.getProperty("headless");
-        if (driver == null) {
+    public SharedDriver() {
+        if (DriverFactory.getDriver() != null) {
+            return;
+        } else {
+            String seleniumDriver = System.getProperty("seleniumDriver");
+            if (!isDriverAvailable(seleniumDriver)) {
+                //logger
+                seleniumDriver = AvailableDrivers.CHROME.driver();
+            }
+            String headlessOption = System.getProperty("headless");
+            String implicitTimeoutString = System.getProperty("implicitTimeoutSeconds");
+            int implicitWaitSeconds;
+            if (implicitTimeoutString != null && implicitTimeoutString.length() > 0) {
+                implicitWaitSeconds = Integer.parseInt(implicitTimeoutString);
+            } else {
+                implicitWaitSeconds = 30;
+            }
             switch (seleniumDriver) {
 
                 case "chrome":
-                    driver = setupChromeDriver(headlessOption);
-                    return driver;
+                    driver = setupChromeDriver(headlessOption, implicitWaitSeconds);
+                    break;
                 case "firefox":
-                    driver = setupFirefoxDriver(headlessOption);
-                    return driver;
+                    driver = setupFirefoxDriver(headlessOption, implicitWaitSeconds);
+                    break;
                 default:
-                    driver = setupChromeDriver(headlessOption);
-                    return driver;
+                    driver = setupChromeDriver(headlessOption, implicitWaitSeconds);
+                    break;
             }
-        } else {
-            return driver;
+            DriverFactory.addDriver(driver);
         }
     }
 
@@ -48,7 +59,7 @@ public class Driver {
         return false;
     }
 
-    private ChromeDriver setupChromeDriver(String headlessOption) {
+    private ChromeDriver setupChromeDriver(String headlessOption, int implicitWaitSeconds) {
         final DesiredCapabilities desiredCapabilities = DesiredCapabilities.chrome();
         final ChromeOptions chromeOptions = new ChromeOptions();
         if (headlessOption != null && headlessOption.equalsIgnoreCase("on")) {
@@ -58,19 +69,20 @@ public class Driver {
         desiredCapabilities.setCapability(ChromeOptions.CAPABILITY, chromeOptions);
         System.setProperty("webdriver.chrome.driver", "drivers/chromedriver");
         driver = new ChromeDriver();
+        driver.manage().timeouts().implicitlyWait(implicitWaitSeconds, TimeUnit.SECONDS);
         return (ChromeDriver) driver;
     }
 
-    private FirefoxDriver setupFirefoxDriver(String headlessOption) {
+    private FirefoxDriver setupFirefoxDriver(String headlessOption, int implicitWaitSeconds) {
         FirefoxOptions firefoxOptions = new FirefoxOptions();
         if (headlessOption != null && headlessOption.equalsIgnoreCase("on")) {
             FirefoxBinary firefoxBinary = new FirefoxBinary();
             firefoxBinary.addCommandLineOptions("--headless");
-//                    System.setProperty("webdriver.gecko.driver", "/home/ndipiazza/Desktop/geckodriver");
             firefoxOptions.setBinary(firefoxBinary);
         }
         System.setProperty("webdriver.gecko.driver", "drivers/geckodriver");
         driver = new FirefoxDriver(firefoxOptions);
+        driver.manage().timeouts().implicitlyWait(implicitWaitSeconds, TimeUnit.SECONDS);
         return (FirefoxDriver) driver;
     }
 }

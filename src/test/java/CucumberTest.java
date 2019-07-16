@@ -28,6 +28,6 @@ public class CucumberTest extends ParentRunner {
 
     @Override
     protected void runChild(Object o, RunNotifier runNotifier) {
-
+        System.out.println("affasfasf");
     }
 }

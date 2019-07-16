@@ -1,29 +1,42 @@
 package stepdefinitions;
 
-import cucumber.api.java.Before;
+import cucumber.api.java.After;
+import cucumber.api.java.BeforeStep;
 import cucumber.api.java.en.Given;
-import org.junit.BeforeClass;
-import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.remote.RemoteWebDriver;
-import setup.drivers.Driver;
+import pages.General;
+import pages.Login;
+import setup.drivers.SharedDriver;
 
 public class LoginSteps {
 
-    Driver driver = new Driver();
+    Login login;
+    General general;
 
-    RemoteWebDriver getDriver() {
-        return driver.getDriver();
+    @BeforeStep
+    public void beforeClass() {
+        new SharedDriver();
+        login = new Login();
+        general = new General();
     }
 
-    @BeforeClass
-    public void beforeAll() {
-        System.out.println(System.getProperty("seleniumDriver"));
+    @After("@login")
+    public void afterReopenBrowser() {
+        general.reopenBrowser();
     }
 
-    @Given("^Second step$")
-    public void secondStep() throws Throwable {
-        getDriver().get("https://waesworks.bitbucket.io/");
-        Thread.sleep(20000);
+    @Given("User {string} logs in using password {string}")
+    public void secondStep(String user, String password) throws Throwable {
+        login.loginUser(user, password);
+    }
+
+    @Given("I log out")
+    public void logout() {
+        login.logout();
+    }
+
+    @Given("I click {string} button on {string} page")
+    public void clickButton(String button, String page) {
+        general.clickButton(button, page);
     }
 
 }
