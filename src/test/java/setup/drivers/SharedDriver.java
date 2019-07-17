@@ -32,7 +32,7 @@ public class SharedDriver {
             if (implicitTimeoutString != null && implicitTimeoutString.length() > 0) {
                 implicitWaitSeconds = Integer.parseInt(implicitTimeoutString);
             } else {
-                implicitWaitSeconds = 30;
+                implicitWaitSeconds = 5;
             }
             switch (seleniumDriver) {
 

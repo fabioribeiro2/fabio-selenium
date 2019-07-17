@@ -1,24 +1,17 @@
-package pageobjects;
+package framework.impl;
 
-import org.openqa.selenium.WebElement;
+import framework.General;
 import org.openqa.selenium.remote.RemoteWebDriver;
-import org.openqa.selenium.support.CacheLookup;
-import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.How;
-import org.openqa.selenium.support.PageFactory;
 import setup.drivers.DriverFactory;
 import setup.drivers.SharedDriver;
 
-public class GeneralPage {
+
+public class Navigation extends General {
 
     RemoteWebDriver driver;
 
-    public GeneralPage() {
+    public Navigation() {
         driver = DriverFactory.getDriver();
-    }
-
-    public GeneralPage initPage() {
-        return PageFactory.initElements(driver, GeneralPage.class);
     }
 
     public void navigateToUrl(String url) {
@@ -31,4 +24,5 @@ public class GeneralPage {
         new SharedDriver();
         driver = DriverFactory.getDriver();
     }
+
 }

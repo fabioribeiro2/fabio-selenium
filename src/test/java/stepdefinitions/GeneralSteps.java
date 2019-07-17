@@ -1,28 +1,32 @@
 package stepdefinitions;
 
-import cucumber.api.java.After;
 import cucumber.api.java.BeforeStep;
 import cucumber.api.java.en.Given;
-import pages.General;
+import framework.impl.Button;
+import framework.impl.TextField;
+import framework.impl.Navigation;
+import framework.impl.Presence;
 import setup.drivers.SharedDriver;
 
 public class GeneralSteps {
 
-    General general;
+    Button button = new Button();
+    TextField field = new TextField();
+    Navigation navigation = new Navigation();
+    Presence presence = new Presence();
 
     @BeforeStep
     public void beforeClass() {
         new SharedDriver();
-        general = new General();
     }
 
     @Given("I navigate to url {string}")
     public void navigateToUrl(String url) {
-        general.navigateToUrl(url);
+        navigation.navigateToUrl(url);
     }
 
-    @Given("I reopen browser")
-    public void reopenBrowser() {
-        general.reopenBrowser();
+    @Given("I click {string} button in {word} page")
+    public void clickButton(String button, String page) {
+//        navigation.clickButton(button, page);
     }
 }

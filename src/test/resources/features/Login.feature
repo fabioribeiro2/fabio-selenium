@@ -3,46 +3,73 @@ Feature: Login
 
   Background:
     Given I navigate to url "https://waesworks.bitbucket.io"
-    And I click "Login" button
+    And I click Login link in Login page
+    Then I am in Login screen
+
 
   @login
-  Scenario Outline: Validate user logged in message
+  Scenario Outline: Validate Log in link not present after log in
     Given User <user> logs in using password <password>
-    Then message <Login Message> is present on screen
+    Then Log in link is not present on screen
     Examples:
-      | user     | password   | Login Message                                              |
-      | "admin"  | "hero"     | Logged in as Amazing Admin (a.admin@wearewaes.com)!        |
-      | "dev"    | "wizard"   | Logged in as Zuper Dooper Dev (zd.dev@wearewaes.com)!      |
-      | "tester" | "maniac"   | Logged in as Al Skept-Cal Tester (as.tester@wearewaes.com) |
+      | user     | password   |
+      | "admin"  | "hero"     |
+      | "dev"    | "wizard"   |
+      | "tester" | "maniac"   |
 
   @login
-  Scenario: Validate user welcome message
-    Given First Step
-    When Second step
-    Then see "How are you doing" on screen
+  Scenario Outline: Validate Sign up link not present after log in
+    Given User <user> logs in using password <password>
+    Then Sign up link is not present on screen
+    Examples:
+      | user     | password   |
+      | "admin"  | "hero"     |
+      | "dev"    | "wizard"   |
+      | "tester" | "maniac"   |
+
 
   @login
   Scenario Outline: Validate Super Power
-    Given User <user> logs in
-    When Second step
-    Then super power is <superpower>
+    Given User <user> logs in using password <password>
+    Then the user has super power <superpower>
     Examples:
       | user   | password | superpower                        |
-      | admin  | hero     | Change the course of a waterfall  |
-      | dev    | wizard   | Debug a repellent factory storage |
-      | tester | maniac   | Voltage AND Current               |
+      | "admin"  | "hero"     | "Change the course of a waterfall"  |
+      | "dev"    | "wizard"   | "Debug a repellent factory storage" |
+      | "tester" | "maniac"   | "Voltage AND Current"               |
 
   @login
-  Scenario: Validate Profile link present after logging in
-    Given First Step
-    When Second step
-    Then Third Step
+  Scenario Outline: Validate correct login by validating Logout link presence
+    Given User <user> logs in using password <password>
+    Then Log out link is present on screen
+    Examples:
+      | user     | password   |
+      | "admin"  | "hero"     |
+      | "dev"    | "wizard"   |
+      | "tester" | "maniac"   |
 
   @login
-  Scenario: Validate Details link present after logging in
-    Given First Step
-    When Second step
-    Then Third Step
+  Scenario Outline: Validate correct login by validating Profile link presence
+    Given User <user> logs in using password <password>
+    Then Profile link is present on screen
+    Examples:
+      | user     | password   |
+      | "admin"  | "hero"     |
+      | "dev"    | "wizard"   |
+      | "tester" | "maniac"   |
+
+  @login
+  Scenario Outline: Validate correct login by validating Details link presence
+    Given User <user> logs in using password <password>
+    Then Details link is present on screen
+    Examples:
+      | user     | password   |
+      | "admin"  | "hero"     |
+      | "dev"    | "wizard"   |
+      | "tester" | "maniac"   |
+
+
+
 
   @login
   Scenario: Validate Log in link not present after logging in
