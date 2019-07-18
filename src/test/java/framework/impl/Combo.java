@@ -4,23 +4,23 @@ import framework.AvailableLocatorModes;
 import framework.General;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.remote.RemoteWebDriver;
+import org.openqa.selenium.support.ui.Select;
 import setup.drivers.DriverFactory;
 
-public class Link extends General {
-
-    Presence presence = new Presence();
+public class Combo extends General {
 
     RemoteWebDriver driver;
+    Presence presence = new Presence();
 
-    public Link() {
+    public Combo() {
         driver = DriverFactory.getDriver();
     }
 
-    public void click(String linkName, String page) {
+    public void select(String field, String value, String page) {
         Class pageClass = getInitializedClassFromName(page, AvailableLocatorModes.PAGE_OBJECTS);
-        WebElement link = getWebElementFieldFromClass(pageClass, linkName);
+        WebElement comboElement = getWebElementFieldFromClass(pageClass, field);
 
-        presence.waitForElementPresence(link, page);
-        link.click();
+        final Select selectBox = new Select(comboElement);
+        selectBox.selectByValue(value);
     }
 }

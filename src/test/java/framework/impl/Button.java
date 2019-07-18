@@ -1,5 +1,6 @@
 package framework.impl;
 
+import framework.AvailableLocatorModes;
 import framework.General;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.remote.RemoteWebDriver;
@@ -15,8 +16,8 @@ public class Button extends General {
     }
 
     public void click(String buttonName, String page) {
-        Class pageClass = getInitializedClassFromName(page);
-        WebElement link = getFieldFromClass(pageClass, buttonName);
+        Class pageClass = getInitializedClassFromName(page, AvailableLocatorModes.PAGE_OBJECTS);
+        WebElement link = getWebElementFieldFromClass(pageClass, buttonName);
 
         presence.waitForElementPresence(buttonName, page);
         link.click();

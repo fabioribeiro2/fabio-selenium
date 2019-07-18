@@ -4,33 +4,37 @@ import cucumber.api.java.After;
 import cucumber.api.java.BeforeStep;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
+import cucumber.api.java.en.When;
 import framework.impl.*;
 import setup.drivers.SharedDriver;
 
 public class LoginSteps {
 
-    public static final String LOGIN_PAGE = "Login";
-    public static final String LOGIN_BUTTON = "loginButton";
-    public static final String USERNAME = "username";
-    public static final String PASSWORD = "password";
-    public static final String LOGIN_LINK = "loginLink";
-    public static final String LOGOUT_LINK = "logoutLink";
-    public static final String ASSIGNMENT_LINK = "assignmentLink";
-    public static final String PROFILE_LINK = "profileLink";
-    public static final String DETAILS_LINK = "detailsLink";
+    private static final String LOGIN_PAGE = "Login";
+    private static final String LOGIN_BUTTON = "loginButton";
+    private static final String USERNAME = "username";
+    private static final String PASSWORD = "password";
+    private static final String LOGIN_LINK = "loginLink";
+    private static final String LOGOUT_LINK = "logoutLink";
+    private static final String ASSIGNMENT_LINK = "assignmentLink";
+    private static final String PROFILE_LINK = "profileLink";
+    private static final String DETAILS_LINK = "detailsLink";
     private static final String SIGNUP_LINK = "signupLink";
 
 
-    Button button = new Button();
-    TextField field = new TextField();
-    Navigation navigation = new Navigation();
-    Presence presence = new Presence();
-    Link link = new Link();
-    TextField textField = new TextField();
+    Button button;
+    Navigation navigation;
+    Presence presence;
+    Link link;
+    TextField textField;
 
     @BeforeStep
     public void beforeClass() {
         new SharedDriver();
+        navigation = new Navigation();
+        presence = new Presence();
+        link = new Link();
+        textField = new TextField();
     }
 
     @After("@login")
@@ -61,8 +65,13 @@ public class LoginSteps {
         presence.waitForElementPresence(message, LOGIN_PAGE);
     }
 
-    @Then("Log out link is present on screen")
-    public void logoutLinkPresent() {
+    @When("Log out link is present on screen")
+    public void whenLogoutLinkPresent() {
+        presence.waitForElementPresence(LOGOUT_LINK, LOGIN_PAGE);
+    }
+
+    @Then("Logout link is present on screen")
+    public void thenLogoutLinkPresent() {
         presence.waitForElementPresence(LOGOUT_LINK, LOGIN_PAGE);
     }
 
@@ -86,8 +95,35 @@ public class LoginSteps {
         presence.waitForElementToDisappear(LOGIN_LINK, LOGIN_PAGE);
     }
 
-    @Then("Sign up link is not present on screen")
+    @When("Sign up link is not present on screen")
     public void signupLinkNotPresent() {
         presence.waitForElementToDisappear(SIGNUP_LINK, LOGIN_PAGE);
     }
+
+    @Then("Sign up link is present on screen")
+    public void signupLinkPresent() {
+        presence.waitForElementPresence(SIGNUP_LINK, LOGIN_PAGE);
+    }
+
+    @Then("Login link is present on screen")
+    public void loginLinkPresent() {
+        presence.waitForElementPresence(LOGIN_LINK, LOGIN_PAGE);
+    }
+
+    @Then("Login button is present on screen")
+    public void loginButtonPresent() {
+        presence.waitForElementPresence(LOGIN_BUTTON, LOGIN_PAGE);
+    }
+
+    @When("I log out")
+    public void logout() {
+        link.click(LOGOUT_LINK, LOGIN_PAGE);
+        presence.waitForElementPresence(LOGIN_BUTTON, LOGIN_PAGE);
+    }
+
+    @When("Wrong credentials message is shown on screen")
+    public void wrongCredentialsMessage() {
+        presence.waitForTextPresence("Wrong credentials. You can do it, try again!");
+    }
+
 }

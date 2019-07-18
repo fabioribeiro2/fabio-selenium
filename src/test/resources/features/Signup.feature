@@ -1,38 +1,34 @@
-@all
+@signup
 Feature: Sign up
 
-  Scenario Outline: Validate user logged in message
-    Given User <user> logs in
-    When Second step
-    Then Third Step
+  Background:
+    Given I navigate to url "https://waesworks.bitbucket.io"
+    And I click Sign up link
+
+  Scenario Outline: Validate Sign up permutations
+    Given I fill Username field with value <username>
+    And I fill Password field with value <password>
+    And I fill Name field with value <name>
+    And I fill E-mail field with value <email>
+    And I fill Date of Birth Day combo with value <day>
+    And I fill Date of Birth Month combo with value <month>
+    And I fill Date of Birth Year combo with value <year>
+    When I click Submit button
+    Then I should be on the User Profile page
+    And I should see text "Welcome to your new profile page" on screen
     Examples:
-      | user   | password | Login Message |
-      | admin  | hero     | Logged in as Amazing Admin (a.admin@wearewaes.com)!        |
-      | dev    | wizard   | Logged in as Zuper Dooper Dev (zd.dev@wearewaes.com)!      |
-      | tester | maniac   | Logged in as Al Skept-Cal Tester (as.tester@wearewaes.com) |
+      | username          | password      | name       | email             | day          | month          |    year         |
+      | "abdc"            | "c"           | "d"        | "e@e.com"         | "1"          | "April"        | "1987"          |
+      | "bddd"            | "c"           | "d"        | "e@e.com"         | "22"         | "July"         | "1978"          |
+      | "cedf"            | "c"           | "d"        | "ee@e.com"        | "3"          | "November"     | "2018"          |
 
-  Scenario: Validate user welcome message
-    Given First Step
-    When Second step
-    Then see "How are you doing" on screen
+  Scenario Outline: Validate max size of each field
 
-  Scenario Outline: Validate Super Power
-    Given User <user> logs in
-    When Second step
-    Then super power is <superpower>
-    Examples:
-      | user   | password | superpower                        |
-      | admin  | hero     | Change the course of a waterfall  |
-      | dev    | wizard   | Debug a repellent factory storage |
-      | tester | maniac   | Voltage AND Current               |
+  Scenario Outline: Validate requirement of each field
 
-  Scenario: Validate Profile link present
-    Given First Step
-    When Second step
-    Then Third Step
+  Scenario: Username should not allow whitespace
 
-  Scenario: Validate logout behavior when user logs in
-    Given First Step
-    When Second step
-    Then see "To get the full hero experience, you’ll need to log in" on screen
-    And see "Log in" button
+  Scenario Outline: Email mask validations
+
+  Scenario: Date of Birth should not be in the future
+

@@ -10,11 +10,11 @@ public class General {
 
     String INIT_PAGE = "initPage";
 
-    public Class getInitializedClassFromName(String className) {
+    public Class getInitializedClassFromName(String className, AvailableLocatorModes mode) {
         Class pageObjectsClass = null;
         try {
             try {
-                pageObjectsClass = Class.forName("pageobjects." + className).newInstance().getClass();
+                pageObjectsClass = Class.forName(mode.mode() + "." +  className).newInstance().getClass();
             } catch (InstantiationException e) {
                 e.printStackTrace();
             } catch (IllegalAccessException e) {
@@ -23,7 +23,9 @@ public class General {
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }
-        invokeMethod(pageObjectsClass, INIT_PAGE);
+        if (mode == AvailableLocatorModes.PAGE_OBJECTS) {
+            invokeMethod(pageObjectsClass, INIT_PAGE);
+        }
         return pageObjectsClass;
     }
 
@@ -44,8 +46,7 @@ public class General {
         }
     }
 
-
-    public WebElement getFieldFromClass(Class pageObjectsClass, String fieldName) {
+    public WebElement getWebElementFieldFromClass(Class pageObjectsClass, String fieldName) {
         WebElement pageObjectsField = null;
         try {
             Field[] fields = pageObjectsClass.getDeclaredFields();
@@ -59,4 +60,20 @@ public class General {
         }
         return pageObjectsField;
     }
+
+    public String getStringFieldFromClass(Class pageObjectsClass, String fieldName) {
+        String stringField = null;
+        try {
+            Field[] fields = pageObjectsClass.getDeclaredFields();
+            for (Field field : fields) {
+                if (field.getType() == String.class && field.getName().equals(fieldName)) {
+                    stringField = (String) field.get(this);
+                }
+            }
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        }
+        return stringField;
+    }
+
 }

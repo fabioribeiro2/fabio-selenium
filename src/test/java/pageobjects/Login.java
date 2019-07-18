@@ -18,7 +18,7 @@ public class Login {
     @CacheLookup
     public static WebElement loginButton;
 
-    @FindBy(how = How.LINK_TEXT, using = "LogIn")
+    @FindBy(how = How.ID, using = "login_link")
     @CacheLookup
     public static WebElement loginLink;
 

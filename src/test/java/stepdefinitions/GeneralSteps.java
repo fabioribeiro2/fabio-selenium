@@ -10,14 +10,18 @@ import setup.drivers.SharedDriver;
 
 public class GeneralSteps {
 
-    Button button = new Button();
-    TextField field = new TextField();
-    Navigation navigation = new Navigation();
-    Presence presence = new Presence();
+    Button button;
+    TextField field;
+    Navigation navigation;
+    Presence presence;
 
     @BeforeStep
     public void beforeClass() {
         new SharedDriver();
+        button = new Button();
+        field = new TextField();
+        navigation = new Navigation();
+        presence = new Presence();
     }
 
     @Given("I navigate to url {string}")
@@ -25,8 +29,4 @@ public class GeneralSteps {
         navigation.navigateToUrl(url);
     }
 
-    @Given("I click {string} button in {word} page")
-    public void clickButton(String button, String page) {
-//        navigation.clickButton(button, page);
-    }
 }

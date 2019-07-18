@@ -9,7 +9,7 @@ import org.junit.runners.model.InitializationError;
 import java.util.List;
 
 @RunWith(Cucumber.class)
-@CucumberOptions(plugin = {"pretty"},tags={"@all"},glue="stepdefinitions")
+@CucumberOptions(plugin = {"pretty"},tags={"@signup"},glue="stepdefinitions")
 public class CucumberTest extends ParentRunner {
 
     protected CucumberTest(Class testClass) throws InitializationError {
