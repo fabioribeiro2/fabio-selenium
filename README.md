@@ -43,7 +43,7 @@ Enjoy!
 
 Bugs found during the development of this project:
 
-###Signup screen:
+### Signup screen:
 
 Bug: Text fields allowing infinite size
 Actual: all text fields allow very large size
@@ -61,9 +61,9 @@ Bug: E-mail format
 Actual: Many invalid e-mail formats are being accepted
 Expected: No invalid e-mail formats are being accepted
 
-###Profile screen:
+### Profile screen:
 
-###Login screen:
+### Login screen:
 
 Allowing new user with username with whitespaces
 Actual: works but username truncates spaces
