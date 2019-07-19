@@ -2,26 +2,31 @@ package stepdefinitions;
 
 import cucumber.api.java.BeforeStep;
 import cucumber.api.java.en.Given;
-import framework.impl.Button;
-import framework.impl.TextField;
-import framework.impl.Navigation;
-import framework.impl.Presence;
+import framework.impl.*;
 import setup.drivers.SharedDriver;
 
 public class GeneralSteps {
 
-    Button button;
-    TextField field;
     Navigation navigation;
     Presence presence;
+    Link link;
+    TextField textField;
+    Combo combo;
+    Button button;
 
+    /**
+     * This class runs before any scenario in the features that use its function
+     * It initializes the webdriver and underlying framework classes
+     */
     @BeforeStep
     public void beforeClass() {
         new SharedDriver();
-        button = new Button();
-        field = new TextField();
         navigation = new Navigation();
         presence = new Presence();
+        link = new Link();
+        textField = new TextField();
+        combo = new Combo();
+        button = new Button();
     }
 
     @Given("I navigate to url {string}")

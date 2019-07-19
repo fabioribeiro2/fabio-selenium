@@ -8,6 +8,9 @@ import org.openqa.selenium.support.How;
 import org.openqa.selenium.support.PageFactory;
 import setup.drivers.DriverFactory;
 
+/**
+ * This is the PageObjects class for screen Signup
+ */
 public class Signup {
 
     RemoteWebDriver driver;
@@ -48,10 +51,17 @@ public class Signup {
     @CacheLookup
     public static WebElement dobYear;
 
+    /**
+     * Constructor that fetches the driver from ThreadLocal
+     */
     public Signup() {
         driver = DriverFactory.getDriver();
     }
 
+    /**
+     * This class initializes the fields of this class on the Webdriver
+     * @return an instance object of this class
+     */
     public Signup initPage() {
         return PageFactory.initElements(driver, Signup.class);
     }

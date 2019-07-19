@@ -16,6 +16,17 @@ import java.util.concurrent.TimeUnit;
 public class SharedDriver {
 
     RemoteWebDriver driver;
+    public static final int IMPLICIT_WAIT_SECONDS = 3;
+
+    /**
+     * This is the constructor for this class
+     * It initializes the drivers for each Thread and adds them to a ThreadLocal object
+     * It also initializes useful options for the driver, such as:
+     * - Implicit Wait period
+     * - Which driver to use among available choices (Chrome, Firefox, etc) - Default: Chrome
+     * - Headless option
+     *
+     */
 
     public SharedDriver() {
         if (DriverFactory.getDriver() != null) {
@@ -32,7 +43,7 @@ public class SharedDriver {
             if (implicitTimeoutString != null && implicitTimeoutString.length() > 0) {
                 implicitWaitSeconds = Integer.parseInt(implicitTimeoutString);
             } else {
-                implicitWaitSeconds = 5;
+                implicitWaitSeconds = IMPLICIT_WAIT_SECONDS;
             }
             switch (seleniumDriver) {
 
@@ -50,6 +61,12 @@ public class SharedDriver {
         }
     }
 
+    /**
+     * This method validates the choice of Selenium Driver
+     * Against supported versions of drivers in this framework
+     * @param seleniumDriver Selenium choice of user
+     * @return if it is supported
+     */
     private boolean isDriverAvailable(String seleniumDriver) {
         for (AvailableDrivers availableDriver : AvailableDrivers.values()) {
             if (seleniumDriver == availableDriver.driver()) {
@@ -59,6 +76,12 @@ public class SharedDriver {
         return false;
     }
 
+    /**
+     * Sets up the chrome driver
+     * @param headlessOption On or Off
+     * @param implicitWaitSeconds Implicit wait in seconds
+     * @return the configured driver
+     */
     private ChromeDriver setupChromeDriver(String headlessOption, int implicitWaitSeconds) {
         final DesiredCapabilities desiredCapabilities = DesiredCapabilities.chrome();
         final ChromeOptions chromeOptions = new ChromeOptions();
@@ -73,6 +96,12 @@ public class SharedDriver {
         return (ChromeDriver) driver;
     }
 
+    /**
+     * Sets up the firefox driver
+     * @param headlessOption On or Off
+     * @param implicitWaitSeconds Implicit wait in seconds
+     * @return the configured driver
+     */
     private FirefoxDriver setupFirefoxDriver(String headlessOption, int implicitWaitSeconds) {
         FirefoxOptions firefoxOptions = new FirefoxOptions();
         if (headlessOption != null && headlessOption.equalsIgnoreCase("on")) {

@@ -1,5 +1,8 @@
 package setup.drivers;
 
+/**
+ * Enum for keeping supported Selenium Drivers list
+ */
 public enum AvailableDrivers {
 
     CHROME("chrome"),

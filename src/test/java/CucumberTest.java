@@ -8,8 +8,12 @@ import org.junit.runners.model.InitializationError;
 
 import java.util.List;
 
+/**
+ * This is the runner class for the entire framework
+ * Do not change this Class's name, it is required by JUnit
+ */
 @RunWith(Cucumber.class)
-@CucumberOptions(plugin = {"pretty"},tags={"@signup"},glue="stepdefinitions")
+@CucumberOptions(strict = false, tags={"@all"},glue="stepdefinitions", plugin= { "pretty", "html:target/cucumber-reports" })
 public class CucumberTest extends ParentRunner {
 
     protected CucumberTest(Class testClass) throws InitializationError {

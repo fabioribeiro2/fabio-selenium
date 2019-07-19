@@ -1,13 +1,10 @@
 package xpath;
 
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.remote.RemoteWebDriver;
-import org.openqa.selenium.support.CacheLookup;
-import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.How;
-import org.openqa.selenium.support.PageFactory;
-import setup.drivers.DriverFactory;
-
+/**
+ * This is an Xpath Class for the screen Login
+ * For certain Selenium operations where xpaths are needed
+ * These classes are accessed via Java Reflection
+ */
 public class Login {
 
     public static String loginButton = "//input[@id='login_button']";
@@ -22,9 +19,9 @@ public class Login {
 
     public static String assignmentLink = "//a[text()='here']";
 
-    public static String profileLink;
+    public static String profileLink = "//a[@id='profile_link']";
 
-    public static String detailsLink;
+    public static String detailsLink = "//a[@id='']details_link'";
 
     public static String yourProfileText;
 

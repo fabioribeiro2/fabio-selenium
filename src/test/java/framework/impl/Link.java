@@ -16,7 +16,7 @@ public class Link extends General {
         driver = DriverFactory.getDriver();
     }
 
-    public void click(String linkName, String page) {
+    public void click(String linkName, String page) throws NoSuchFieldException {
         Class pageClass = getInitializedClassFromName(page, AvailableLocatorModes.PAGE_OBJECTS);
         WebElement link = getWebElementFieldFromClass(pageClass, linkName);
 

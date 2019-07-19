@@ -52,6 +52,13 @@
       <version>3.141.59</version>
     </dependency>
 
+    <dependency>
+      <groupId>net.masterthought</groupId>
+      <artifactId>cucumber-reporting</artifactId>
+      <version>4.7.0</version>
+    </dependency>
+
+
   </dependencies>
 
   <build>
@@ -61,7 +68,7 @@
         <configuration>
           <parallel>methods</parallel>
           <perCoreThreadCount>1</perCoreThreadCount>
-          <threadCountMethods>${cucumber.numthreads}</threadCountMethods>
+          <threadCountMethods>1</threadCountMethods>
         </configuration>
       </plugin>
   </plugins>
